@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f4ed">
+    <meta name="description" content="NutriRAG — everyday nutrition guidance grounded in trusted sources.">
+    <title>NutriRAG — feel good, eat well</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" aria-label="NutriRAG home">
+          <span class="brand-mark" aria-hidden="true">n</span>
+          <span>nutri<span class="brand-light">rag</span></span>
+        </a>
+        <div class="workspace-label">YOUR SPACE</div>
+        <nav class="primary-nav">
+          <button class="nav-link active" data-view="overview"><span class="nav-icon">⌂</span> Overview</button>
+          <button class="nav-link" data-view="library"><span class="nav-icon">◫</span> Food library</button>
+          <button class="nav-link" data-view="plan"><span class="nav-icon">▤</span> My meal plan</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="source-note">
+            <span class="source-spark" aria-hidden="true">✳</span>
+            <strong>Rooted in good sources</strong>
+            <p>Every answer links back to trusted nutrition references.</p>
+            <button class="text-button" data-view="sources">Explore our sources <span aria-hidden="true">↗</span></button>
+          </div>
+          <button class="profile-button" id="preferences-open">
+            <span class="avatar">A</span>
+            <span class="profile-copy"><strong>Alex Morgan</strong><small>Personal space</small></span>
+            <span class="profile-more" aria-hidden="true">···</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumb"><span>My space</span><span class="slash">/</span><strong id="breadcrumb-current">Overview</strong></div>
+          <div class="topbar-actions">
+            <span class="today-label"><span class="status-dot"></span> Your nutrition, your way</span>
+            <button class="icon-button" id="preferences-open-top" aria-label="Open preferences" title="Preferences">⚙</button>
+          </div>
+        </header>
+
+        <div class="content-wrap">
+          <section class="view-panel active" id="overview-view">
+            <div class="welcome-row">
+              <div>
+                <p class="eyebrow"><span class="sun-icon">☀</span> <span id="current-date">YOUR DAILY CHECK-IN</span></p>
+                <h1>A little better, <em>every day.</em></h1>
+                <p class="intro">Good morning, Alex. Here’s your gentle nudge toward feeling your best.</p>
+              </div>
+              <button class="outline-button" id="preferences-open-main"><span aria-hidden="true">☷</span> Your preferences</button>
+            </div>
+
+            <section class="stats-grid" aria-label="Daily nutrition progress">
+              <article class="stat-card calories-card">
+                <div class="stat-heading"><span>Energy</span><span class="stat-emoji">◉</span></div>
+                <div class="stat-value"><strong id="calories-value">1,280</strong><span> / 2,000 kcal</span></div>
+                <div class="progress-track"><span class="progress-fill calorie-fill" id="calories-progress"></span></div>
+                <div class="stat-foot"><span>Daily estimate</span><span id="calories-left">720 to go</span></div>
+              </article>
+              <article class="stat-card protein-card">
+                <div class="stat-heading"><span>Protein</span><span class="stat-emoji">✳</span></div>
+                <div class="stat-value"><strong id="protein-value">48</strong><span> / 90 g</span></div>
+                <div class="progress-track"><span class="progress-fill protein-fill" id="protein-progress"></span></div>
+                <div class="stat-foot"><span>Daily estimate</span><span id="protein-left">42 g to go</span></div>
+              </article>
+              <article class="stat-card water-card">
+                <div class="stat-heading"><span>Hydration</span><span class="stat-emoji">◌</span></div>
+                <div class="stat-value"><strong id="water-value">5</strong><span> / 8 glasses</span></div>
+                <div class="progress-track"><span class="progress-fill water-fill" id="water-progress"></span></div>
+                <div class="stat-foot"><span>Just a friendly reminder</span><button class="mini-action" id="add-water">+ Add a glass</button></div>
+              </article>
+            </section>
+            <p class="metrics-note">Estimates are for reflection, not prescriptions. Personal needs vary.</p>
+
+            <div class="dashboard-grid">
+              <section class="assistant-card" aria-labelledby="assistant-title">
+                <div class="assistant-header">
+                  <div class="assistant-title-wrap">
+                    <span class="assistant-mark" aria-hidden="true">✳</span>
+                    <div><p class="eyebrow">YOUR NUTRITION COMPANION</p><h2 id="assistant-title">Ask NutriRAG</h2></div>
+                  </div>
+                  <span class="grounded-badge"><span></span> Source grounded</span>
+                </div>
+                <div class="chat-body" id="chat-body" aria-live="polite">
+                  <div class="message user-message">
+                    <span class="message-avatar">A</span>
+                    <div class="message-content"><span class="message-label">YOU · JUST NOW</span><p>What are some high-protein vegetarian breakfasts?</p></div>
+                  </div>
+                  <div class="message assistant-message" id="welcome-answer">
+                    <span class="message-avatar bot-avatar">✳</span>
+                    <div class="message-content">
+                      <span class="message-label">NUTRIRAG · A MOMENT AGO</span>
+                      <p>Absolutely! A few satisfying options to try:</p>
+                      <ul class="answer-list">
+                        <li><strong>Greek yogurt bowl</strong> with berries, nuts, and a sprinkle of seeds.</li>
+                        <li><strong>Eggs with whole-grain toast</strong> and sautéed spinach or tomatoes.</li>
+                        <li><strong>Tofu scramble</strong> with black beans, peppers, and avocado.</li>
+                      </ul>
+                      <p>Protein amounts vary by ingredient and portion. Mix it up with foods you enjoy—there’s no single “perfect” breakfast.</p>
+                      <div class="citations" id="welcome-citations">
+                        <a class="citation" href="https://www.myplate.gov/eat-healthy/protein-foods" target="_blank" rel="noreferrer"><span class="citation-number">01</span><span><strong>Protein Foods</strong><small>MyPlate · USDA</small></span><span class="external-mark">↗</span></a>
+                        <a class="citation" href="https://fdc.nal.usda.gov/" target="_blank" rel="noreferrer"><span class="citation-number">02</span><span><strong>FoodData Central</strong><small>USDA · Food composition</small></span><span class="external-mark">↗</span></a>
+                        <a class="citation" href="https://ods.od.nih.gov/factsheets/Protein-HealthProfessional/" target="_blank" rel="noreferrer"><span class="citation-number">03</span><span><strong>Protein fact sheet</strong><small>NIH · Office of Dietary Supplements</small></span><span class="external-mark">↗</span></a>
+                      </div>
+                      <div class="answer-disclaimer"><span aria-hidden="true">ⓘ</span> General information only—not a substitute for advice from your healthcare professional.</div>
+                      <div class="suggestion-row">
+                        <button class="suggestion" data-query="How can I add more fiber to my meals?">More fiber ideas <span>↗</span></button>
+                        <button class="suggestion" data-query="What are some balanced afternoon snacks?">Snack inspiration <span>↗</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <form class="chat-form" id="chat-form">
+                  <label class="sr-only" for="chat-input">Ask a nutrition question</label>
+                  <input id="chat-input" type="text" placeholder="Ask anything about food & feeling good..." autocomplete="off">
+                  <button type="submit" class="send-button" aria-label="Send question">↑</button>
+                </form>
+                <p class="chat-caption">Thoughtful answers, grounded in sources. <button class="text-button" data-view="sources">How it works</button></p>
+              </section>
+
+              <aside class="side-column">
+                <section class="meal-card">
+                  <div class="section-heading"><div><p class="eyebrow">A LITTLE INSPIRATION</p><h2>Today’s plate</h2></div><button class="subtle-link" data-view="plan">See plan <span>↗</span></button></div>
+                  <div id="meal-suggestions" class="meal-suggestions"></div>
+                  <button class="add-meal-link" data-view="library"><span>＋</span> Find something you’ll love</button>
+                </section>
+                <section class="tip-card">
+                  <div class="tip-icon" aria-hidden="true">✿</div>
+                  <p class="eyebrow">A GENTLE REMINDER</p>
+                  <h3>Progress isn’t<br>always a number.</h3>
+                  <p>Notice how your food makes you feel. Small, joyful choices count, too.</p>
+                  <span class="tip-decoration" aria-hidden="true">✳</span>
+                </section>
+              </aside>
+            </div>
+            <footer class="health-disclaimer">NutriRAG offers general educational information, not medical or dietary treatment. For personal recommendations—especially for a health condition, pregnancy, or an eating disorder—please talk with a qualified healthcare professional.</footer>
+          </section>
+
+          <section class="view-panel" id="library-view">
+            <div class="page-heading"><p class="eyebrow">A LIBRARY FOR EVERYDAY GOODNESS</p><h1>Food, made <em>simple.</em></h1><p class="intro">Explore nourishing building blocks and find something that sounds good to you.</p></div>
+            <div class="library-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="food-search" type="search" placeholder="Search foods, meals, or nutrients..." aria-label="Search foods"></label><div class="filter-row" role="group" aria-label="Filter by food type"><button class="filter-chip selected" data-filter="All">All foods</button><button class="filter-chip" data-filter="Protein">Protein-rich</button><button class="filter-chip" data-filter="Fiber">Fiber-rich</button><button class="filter-chip" data-filter="Plant-based">Plant-based</button></div></div>
+            <div id="food-grid" class="food-grid"></div>
+            <p class="health-disclaimer">Nutrition values are approximate examples. Check product labels and official food databases for serving-specific information.</p>
+          </section>
+
+          <section class="view-panel" id="plan-view">
+            <div class="page-heading"><p class="eyebrow">YOUR FLEXIBLE DAILY PLAN</p><h1>Make room for <em>what you love.</em></h1><p class="intro">A starting point, not a set of rules. Add, remove, and adjust as you like.</p></div>
+            <div class="plan-summary" id="plan-summary"></div>
+            <div class="plan-content" id="plan-content"></div>
+            <button class="outline-button" data-view="library">＋ Browse the food library</button>
+            <p class="health-disclaimer">Meal ideas are for general inspiration only. Adjust portions and choices to your needs and clinician’s advice.</p>
+          </section>
+
+          <section class="view-panel" id="sources-view">
+            <div class="page-heading"><p class="eyebrow">OPEN, TRUSTWORTHY REFERENCES</p><h1>Good guidance starts <em>with good sources.</em></h1><p class="intro">NutriRAG’s demo knowledge base links to public nutrition resources. Select a source to explore it directly.</p></div>
+            <div class="sources-grid" id="sources-grid"></div>
+            <div class="source-method"><span class="assistant-mark">✳</span><div><h2>How NutriRAG answers</h2><p>This prototype retrieves short, pre-written educational notes from its local knowledge base based on your question, then shows the related source links. It does not connect to a live AI model, interpret medical records, or provide individualized treatment.</p></div></div>
+            <p class="health-disclaimer">For personal nutrition or medical advice, consult a qualified healthcare professional.</p>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="preferences-dialog" id="preferences-dialog" aria-labelledby="preferences-title">
+      <form method="dialog" class="dialog-close-form"><button class="dialog-close" aria-label="Close preferences">×</button></form>
+      <p class="eyebrow">MAKE THIS SPACE YOURS</p><h2 id="preferences-title">Your preferences</h2>
+      <p class="dialog-intro">Choose the food patterns you’d like to see in your meal inspiration. You can change these anytime.</p>
+      <fieldset><legend>Food preferences</legend><div class="preference-options">
+        <label><input type="checkbox" name="pref" value="Vegetarian"><span>Vegetarian</span></label>
+        <label><input type="checkbox" name="pref" value="Vegan"><span>Vegan</span></label>
+        <label><input type="checkbox" name="pref" value="Gluten-free"><span>Gluten-free</span></label>
+        <label><input type="checkbox" name="pref" value="Dairy-free"><span>Dairy-free</span></label>
+      </div></fieldset>
+      <button class="primary-button save-preferences" id="save-preferences" type="button">Save preferences</button>
+      <p class="dialog-note">Preferences only filter suggestions in this browser. They aren’t medical guidance.</p>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
